@@ -1,0 +1,32 @@
+# --- build / IDE artifacts ---
+Objects/
+Listings/
+Debug/
+Release/
+Output/
+Bin/
+Obj/
+*.uvguix.*
+*.uvoptx
+*.dep
+*.lnp
+*.map
+*.lst
+*.crf
+*.o
+*.d
+*.axf
+*.bak
+*.iex
+*.tra
+# --- vendor libs (regenerate with CubeMX / TI SDK) ---
+Drivers/
+Middlewares/
+ti/
+source/
+# --- IDE / OS ---
+.vscode/
+.idea/
+__pycache__/
+Thumbs.db
+desktop.ini

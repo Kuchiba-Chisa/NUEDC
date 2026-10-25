@@ -1,0 +1,103 @@
+/**
+ * These arguments were used when this file was generated. They will be automatically applied on subsequent loads
+ * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
+ * @cliArgs --device "MSPM0L130X" --part "Default" --package "VQFN-32(RHB)" --product "mspm0_sdk@2.04.00.06"
+ * @v2CliArgs --device "MSPM0L1306" --package "VQFN-32(RHB)" --product "mspm0_sdk@2.04.00.06"
+ * @versions {"tool":"1.22.0+3893"}
+ */
+
+/**
+ * Import the modules used in this configuration.
+ */
+const GPIO   = scripting.addModule("/ti/driverlib/GPIO", {}, false);
+const GPIO1  = GPIO.addInstance();
+const PWM    = scripting.addModule("/ti/driverlib/PWM", {}, false);
+const PWM1   = PWM.addInstance();
+const PWM2   = PWM.addInstance();
+const SYSCTL = scripting.addModule("/ti/driverlib/SYSCTL");
+const UART   = scripting.addModule("/ti/driverlib/UART", {}, false);
+const UART1  = UART.addInstance();
+
+/**
+ * Write custom configuration values to the imported modules.
+ */
+const gate6  = system.clockTree["MFCLKGATE"];
+gate6.enable = true;
+
+GPIO1.port                               = "PORTA";
+GPIO1.$name                              = "KEY";
+GPIO1.associatedPins.create(4);
+GPIO1.associatedPins[0].$name            = "KEY_1_Pin";
+GPIO1.associatedPins[0].direction        = "INPUT";
+GPIO1.associatedPins[0].internalResistor = "PULL_DOWN";
+GPIO1.associatedPins[0].assignedPin      = "18";
+GPIO1.associatedPins[0].interruptEn      = true;
+GPIO1.associatedPins[0].polarity         = "RISE";
+GPIO1.associatedPins[1].$name            = "KEY_2_Pin";
+GPIO1.associatedPins[1].direction        = "INPUT";
+GPIO1.associatedPins[1].internalResistor = "PULL_DOWN";
+GPIO1.associatedPins[1].assignedPin      = "2";
+GPIO1.associatedPins[1].interruptEn      = true;
+GPIO1.associatedPins[1].polarity         = "RISE";
+GPIO1.associatedPins[2].$name            = "KEY_3_Pin";
+GPIO1.associatedPins[2].direction        = "INPUT";
+GPIO1.associatedPins[2].internalResistor = "PULL_DOWN";
+GPIO1.associatedPins[2].assignedPin      = "3";
+GPIO1.associatedPins[2].interruptEn      = true;
+GPIO1.associatedPins[2].polarity         = "RISE";
+GPIO1.associatedPins[3].$name            = "KEY_4_Pin";
+GPIO1.associatedPins[3].direction        = "INPUT";
+GPIO1.associatedPins[3].assignedPin      = "4";
+GPIO1.associatedPins[3].interruptEn      = true;
+GPIO1.associatedPins[3].polarity         = "RISE";
+
+const Board = scripting.addModule("/ti/driverlib/Board", {}, false);
+
+PWM1.$name               = "PWM_0";
+PWM1.clockPrescale       = 8;
+PWM1.timerCount          = 400;
+PWM1.timerStartTimer     = true;
+PWM1.PWM_CHANNEL_0.$name = "ti_driverlib_pwm_PWMTimerCC0";
+PWM1.PWM_CHANNEL_1.$name = "ti_driverlib_pwm_PWMTimerCC1";
+PWM1.ccp0PinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric0";
+PWM1.ccp1PinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric1";
+
+PWM2.$name               = "PWM_1";
+PWM2.clockPrescale       = 8;
+PWM2.timerCount          = 400;
+PWM2.timerStartTimer     = true;
+PWM2.PWM_CHANNEL_0.$name = "ti_driverlib_pwm_PWMTimerCC2";
+PWM2.PWM_CHANNEL_1.$name = "ti_driverlib_pwm_PWMTimerCC3";
+PWM2.ccp0PinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric4";
+PWM2.ccp1PinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric5";
+
+SYSCTL.clockTreeEn = true;
+
+UART1.$name             = "UART_0";
+UART1.targetBaudRate    = 115200;
+UART1.uartClkSrc        = "MFCLK";
+UART1.enabledInterrupts = ["RX"];
+UART1.txPinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric2";
+UART1.rxPinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric3";
+
+/**
+ * Pinmux solution for unlocked pins/peripherals. This ensures that minor changes to the automatic solver in a future
+ * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
+ * re-solve from scratch.
+ */
+GPIO1.associatedPins[0].pin.$suggestSolution = "PA18";
+GPIO1.associatedPins[1].pin.$suggestSolution = "PA2";
+GPIO1.associatedPins[2].pin.$suggestSolution = "PA3";
+GPIO1.associatedPins[3].pin.$suggestSolution = "PA4";
+Board.peripheral.$suggestSolution            = "DEBUGSS";
+Board.peripheral.swclkPin.$suggestSolution   = "PA20";
+Board.peripheral.swdioPin.$suggestSolution   = "PA19";
+PWM1.peripheral.$suggestSolution             = "TIMG1";
+PWM1.peripheral.ccp0Pin.$suggestSolution     = "PA0";
+PWM1.peripheral.ccp1Pin.$suggestSolution     = "PA1";
+PWM2.peripheral.$suggestSolution             = "TIMG0";
+PWM2.peripheral.ccp0Pin.$suggestSolution     = "PA12";
+PWM2.peripheral.ccp1Pin.$suggestSolution     = "PA13";
+UART1.peripheral.$suggestSolution            = "UART0";
+UART1.peripheral.rxPin.$suggestSolution      = "PA22";
+UART1.peripheral.txPin.$suggestSolution      = "PA17/OPA1.IN0-";
