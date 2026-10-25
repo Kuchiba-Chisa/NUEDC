@@ -38,8 +38,8 @@
 
 ## 编译环境
 
-- STM32：Keil MDK 5（ARMCC V5.06）+ `Keil.STM32F4xx_DFP 2.17.1`。工程里的 `Drivers` 已经精简，只留了 F411 的头文件；
-  要改外设配置，用 CubeMX 打开 `.ioc` 重新生成就行。
+- STM32：Keil MDK 5（ARMCC V5.06）+ `Keil.STM32F4xx_DFP 2.17.1`。
+  **仓库里没有包含 `Drivers/`（HAL + CMSIS）和编译产物**，为了控制体积已排除。用 CubeMX 打开工程里的 `.ioc` 重新生成一次即可补齐，其余源码、工程文件和 `.ioc` 都在。
 - 部分源文件是 GBK 编码（Keil 默认），用 VS Code 打开中文乱码时把编码切成 GB2312。
 - MSPM0：CCS 20.x + `mspm0_sdk_2_04_00_06` + SysConfig 1.22。CCS 里 Import Project 选工程目录即可，`Debug/` 会重新生成。
 
